@@ -1,0 +1,29 @@
+// Folder: monwatch-ui
+
+// Root Files
+README.md
+package.json
+
+// public/
+public/
+├── images/
+│   ├── 20250716_0000_RGB.png         // Sample processed PNG
+│   ├── PWARDS.png                    // Logo image for UI menu
+│   └── latest.png                   // Always points to latest image (used as PWARDS background)
+
+// src/
+src/
+├── App.py                          // Main layout combining components
+
+// Process/
+Process/
+├── aws_fetcher.py                  // Pulls L1b data from AWS (NOAA bucket)
+├── segment_combiner.py             // Joins .DAT segments (if applicable)
+├── generate_image.py               // Converts .DAT/.NC to PNG using Satpy
+├── generate_gif.py                 // Converts image series to animated GIF
+├── latest_symlink.py               // Maintains latest.png link or copy (used as live background)
+│                                    // Logic includes time awareness:
+│                                    // If 0000 UTC or 08:00 A.M. PHT → use TRM (true color)
+│                                    // If 7–4 A.M. PHT → use infrared (INFRA)
+├── hirl_processor.cpp              // Handles HIRL/HSD/CF/TIFF processing (converted from Rust to C++)
+└── himawari_cast_integrator.cpp     // Integrates HimawariCast hardware or feeds (converted from Rust to C++)
