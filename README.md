@@ -15,6 +15,25 @@ MonWatch‑UI - A Windows prototype UI for browsing and previewing NOAA Himawari
 <img width="1437" height="930" alt="image" src="https://github.com/user-attachments/assets/23eb8860-0751-4ed3-841c-d75ff2163dd6" />
 
 
+<img width="1437" height="930" alt="image" src="https://github.com/user-attachments/assets/23eb8860-0751-4ed3-841c-d75ff2163dd6" />
+
+**VS**
+
+HOMESERVER PROCESSED IMAGE:
+<img width="1435" height="941" alt="image" src="https://github.com/user-attachments/assets/5228416d-7b9c-4a87-9162-422218f23875" />
+.
+.
+.
+
+<img width="853" height="773" alt="image" src="https://github.com/user-attachments/assets/080783ec-2a39-4285-a805-17f0b25dbd52" />
+
+**VS**
+
+HOMESERVER PROCESSED IMAGE:
+<img width="1451" height="931" alt="image" src="https://github.com/user-attachments/assets/6d73cc51-470c-40dc-a733-bf7d00419de1" />
+
+
+
 **MonWatch-UI Prototype**
 
 **This is a prototype!**
