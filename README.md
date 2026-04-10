@@ -61,7 +61,7 @@ MonWatch-UI is an experimental UI tool for browsing and previewing Himawari sate
 1.	Clone or download the repository to your local machine.
 2.	Right-click run.bat and select Run as administrator.
 (This will install Python and required dependencies automatically.)
-3.	Once installation completes, the MonWatch-UI UI will launch.
+3.	Once installation completes, the MonWatch-UI will launch.
 
 **Usage**
 1.	Drag-and-Drop: Simply drag AWS Himawari files into the main list panel to load and preview them.
