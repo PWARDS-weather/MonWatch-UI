@@ -19,7 +19,7 @@ MonWatch‑UI - A Windows prototype UI for browsing and previewing NOAA Himawari
 
 **VS**
 
-HOMESERVER PROCESSED IMAGE:
+PWARDS SERVER PROCESSED IMAGE:
 <img width="1435" height="941" alt="image" src="https://github.com/user-attachments/assets/5228416d-7b9c-4a87-9162-422218f23875" />
 .
 .
@@ -29,7 +29,7 @@ HOMESERVER PROCESSED IMAGE:
 
 **VS**
 
-HOMESERVER PROCESSED IMAGE:
+PWARDS SERVER PROCESSED IMAGE:
 <img width="1451" height="931" alt="image" src="https://github.com/user-attachments/assets/6d73cc51-470c-40dc-a733-bf7d00419de1" />
 
 
