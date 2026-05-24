@@ -8,6 +8,10 @@ MonWatch-UI lets you quickly explore raw Himawari geostationary satellite data â
 
 ---
 
+<img width="1666" height="1031" alt="image" src="https://github.com/user-attachments/assets/b4bc4cd7-ba65-43a3-ad16-537c745fe201" />
+
+---
+
 ## Features
 
 - **Drag-and-drop loading** â€” drop AWS Himawari files directly into the UI
