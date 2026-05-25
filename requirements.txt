@@ -1,4 +1,13 @@
 PySide6
+PyQt6
 Pillow
 tifffile
 numpy
+numpy
+boto3
+botocore
+satpy
+rasterio
+pyproj
+pyshp
+requests
