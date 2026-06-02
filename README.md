@@ -23,12 +23,6 @@ MonWatch-UI lets you quickly explore raw Himawari geostationary satellite data â
 
 ---
 
-## Screenshots
-
-| Quality 0.25x | Quality 0.5x | Quality 1x |
-|---|---|---|
-| <img width="418" height="300" alt="image" src="https://github.com/user-attachments/assets/babf6eea-12f8-47eb-8bed-d74dfcb275f1" /> | <img width="268" height="194" alt="image" src="https://github.com/user-attachments/assets/39175537-1564-4961-be0c-32c85ec5c645" /> | <img width="339" height="252" alt="image" src="https://github.com/user-attachments/assets/a2c865e9-2af3-4a95-8c2e-b167bc528176" /> |
-
 ## Requirements
 
 - Windows 10 or 11
