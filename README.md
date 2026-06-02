@@ -68,15 +68,67 @@ All dependencies are installed automatically by `run.bat` via pip.
 
 ---
 
+## Legend
+- `[x]` — Fully added / completed in a recent release
+- `[x+]` — Improving / in active development (partial or ongoing work)
+- `[\~]` — Planned / in the works (explicitly mentioned for future)
+- `[ ]` — Not yet started
+
+### Animation & Visualization
+- [x] Brand new Animation tab — play, pause, scrub, loop + smooth real-time zoom/pan with prefetching
+- [x] Live mouse readout (Latitude/Longitude, B13 Brightness Temperature, AoR status instantly)
+- [x] Proper handling for storms crossing the dateline (Pacific systems now display correctly)
+- [x] Three simple UI modes: Professional, Casual, and Hobby (automatically adjust visible tabs/options)
+- [x] Cleaner map overlays with gridlines + coastlines + better viewport centering
+- [x] Better performance on lower-VRAM GPUs with smart cache management
+- [x] Area of Responsibility (AoR) overlays added: PAGASA (PAR), JMA, TCAD, TCID, Manila FIR
+
+
+### Data Processing & Download Pipeline
+- [x] Complete range-download overhaul using non-blocking `RangeS3DownloadWorker` (full UI responsiveness)
+- [x] Full support for Japan and Target rapid-scan sectors (correct HHMM filename prefixes, mixed rapid-scan folders)
+- [x] Consistent flat local folder naming for both range and single-file downloads
+- [x] Pre-download check that automatically skips already-downloaded `.bz2` / `.DAT` files
+- [x] Automatically starts processing after download finishes
+- [x] Improved product-type detection, wind data filtering, and sector handling
+- [x] Smarter micro-group loader using band + area tokens (`Rxxx/JPxx`) for mixed rapid-scan folders
+- [x] Incremental processing — only missing bands are handled
+- [x] NDMW Level-2 wind data is now automatically merged into the `_AHI.nc` file
+- [x] Per-band dimension naming to prevent shape conflicts
+- [x] Improved ADS sidecar files with geotransform, area metadata, and full band inventory
+- [x] New standalone `--merge-wind` command-line option
+- [x] Large NetCDF files now load smoothly in the background without freezing the app
+- [x] Priority B03 band caching + overall improved caching system
+
+### Other Recent Additions
+- [x] RGB composites support (JMA recipes; NOAA + other GEO satellites planned for future)
+- [x] Multi-layer product improvements and general stability/usability enhancements
+
+
+## 🔄 Currently In Progress / Planned
+Explicitly listed in the **Cyclone 3.0.2 release notes** under "In the works".
+
+- [x+] Support for additional geostationary satellites (GOES, Meteosat) 
+  *(GOES integration planned for v3.0.4 or earlier)*
+- [x+] API system for Point Forecast (Windy & MetraWeather)  
+  *(Metra Weather compatibility exploration — actively in development)*
+- [x+] Wind Overlay improvements + AMV (wind vectors) bug fixes and enhancements
+- [\~] Tracks tab + more customizability options
+- [\~] General GUI improvements (ongoing)
+
+
 ## Roadmap
 
 Planned features for upcoming releases:
 
 - [ ] Sea Surface Temperature (SST) layer overlay
-- [ ] Support for additional geostationary satellites (GOES, Meteosat)
+- [x+] Support for additional geostationary satellites (GOES, Meteosat) 
+  *(Improving — GOES targeted for v3.0.4 or earlier; see "In Progress" section above)*
 - [ ] 3D Earth visualization for combined GeoSat imagery
-- [ ] Export current view as PNG / GeoTIFF
-- [ ] Metra Weather compatibility exploration
+- [ ] Export current view as PNG / GeoTIFF  
+  *(Internal GeoTIFF + NetCDF generation via DAT>NC Processor is actively improved, but no dedicated user-facing "Export current view" UI feature yet)*
+- [x+] Metra Weather compatibility exploration  
+  *(Improving — API system for point forecasts actively in development; see "In Progress" section above)*
 
 ---
 
