@@ -110,3 +110,5 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 PWARDS (Pasacao Weather Atmospheric and Real-Time Data System) is a small open-source weather initiative based in Pasacao, Camarines Sur, Philippines, focused on building accessible meteorology tools for students and hobbyists.
 
 [GitHub](https://github.com/PWARDS-weather) · [Facebook](https://www.facebook.com/share/14ShA5G2Wcv/)
+
+> Himawari-8/9 data courtesy of the Japan Meteorological Agency (JMA), openly distributed via NOAA AWS Open Data Program.
