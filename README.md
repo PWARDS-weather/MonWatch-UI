@@ -51,7 +51,7 @@ https://github.com/user-attachments/assets/5cd2af74-750f-49cf-b33c-0e32ddc1f231
 ## Usage
 
 **Drag and Drop**  
-Drop any supported file (`.tif`, `.nc`, SATAID `.Z*`) into the main panel to load and preview it.
+Drop any supported file (`.tif` (depreciated), `.nc`, SATAID `.Z*`) into the main panel to load and preview it.
 
 **Manual Navigation**  
 Click **Open Folder** to browse local directories. For Himawari data, navigate a date → time → spectral band structure. For SATAID files, select the folder containing `.Z*` archives.
