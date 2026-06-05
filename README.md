@@ -1,4 +1,4 @@
-# MonWatch-UI v3.0.3 – The SATAID & Polish Release
+# MonWatch-UI v3.0.3
 
 **A Windows tool for browsing, previewing, and analyzing satellite imagery — now with native SATAID support.**
 
