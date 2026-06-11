@@ -1,4 +1,25 @@
-# MonWatch-UI v3.0.3
+<img width="1280" height="640" alt="MonWatch-poster" src="https://github.com/user-attachments/assets/2f3e4df5-3b2a-4762-90ab-b4ee17770bf0" />
+
+
+---
+
+<h1 align="center" style="font-size: 3rem; font-weight: 900;">
+  <img 
+    width="32" 
+    height="32" 
+    alt="MONWATCH-UI" 
+    src="https://github.com/user-attachments/assets/76cd20da-59a5-4b8f-9390-1d7b6525b460"
+    style="vertical-align: middle; margin-right: 8px;"
+  >
+  <img 
+    width="32" 
+    height="32" 
+    alt="splash" 
+    src="https://github.com/user-attachments/assets/a7821feb-77fc-4c9d-906a-3cb48aa0e555"
+    style="vertical-align: middle; margin-right: 8px;"
+  >
+  MonWatch-UI v3.0.3
+</h1>
 
 **A Windows tool for browsing, previewing, and analyzing satellite imagery — now with native SATAID support.**
 
