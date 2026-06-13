@@ -278,6 +278,18 @@ PWARDS (Pasacao Weather Atmospheric and Real-Time Data System) is a small open�
 
 > Himawari‑8/9 data courtesy of the Japan Meteorological Agency (JMA), openly distributed via NOAA AWS Open Data Program. GOES data courtesy of NOAA/NESDIS.
 
+
+---
+
+# 🌧️ MonWatch-UI (Names and Meanings) 
+
+**International name (acronym):**  
+`MonWatch-UI` = **Mon**soon + **Watch**ing + **UI**
+
+**Local name (Filipino acronym):**  
+`TINGIN` = **T**ropical **I**ntegrated **N**ear‑real‑time **G**uidance **I**nterface **N**etwork
+*(or)* `SILIP` = **S**atellite **I**nteractive **L**ow‑level **I**maging **P**rocessor
+
 ---
 
 ## Screenshots (v3.0.4)
