@@ -1,5 +1,8 @@
 # MonWatch-UI
 
+> ⚠️ **WARNING: This is an old version!**  
+> Please switch to the **[blizzard branch](https://github.com/PWARDS-weather/MonWatch-UI/tree/blizzard)** for the latest features and updates.
+
 **A Windows tool for browsing and previewing NOAA Himawari satellite imagery hosted on AWS.**
 
 MonWatch-UI lets you quickly explore raw Himawari geostationary satellite data — no web viewer required. Navigate by date, time, and spectral band, preview imagery at multiple quality levels, and view data with CRS georeferencing (lat/lon grid + coastlines) directly from AWS buckets.
