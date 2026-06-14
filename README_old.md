@@ -20,6 +20,9 @@
   MonWatch-UI v3.0.4
 </h1>
 
+> ⚠️ **WARNING: This is an old version!**  
+> Please switch to the **[blizzard branch](https://github.com/PWARDS-weather/MonWatch-UI/tree/blizzard)** for the latest features and updates.
+
 **A Windows tool for browsing, previewing, and analyzing satellite imagery — now with full GOES-16/17/18/19 support.**
 
 MonWatch-UI lets you explore geostationary satellite data from multiple sources: Himawari AWS, GOES ABI (NetCDF), local SATAID (`.Z`) archives, and more. Navigate by date, time, and spectral band, preview at multiple quality levels, view with georeferenced overlays, and switch between four interface modes tailored for professionals, enthusiasts, and users familiar with the classic SATAID workflow.
