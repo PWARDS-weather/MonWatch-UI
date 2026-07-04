@@ -26,7 +26,7 @@
 
 MonWatch-UI lets you explore geostationary satellite data from multiple sources: Himawari AWS, GOES ABI (NetCDF), local SATAID (`.Z`) archives, and more. Navigate by date, time, and spectral band, preview at high quality, view with georeferenced overlays, and switch between four interface modes tailored for professionals, enthusiasts, and users familiar with the classic SATAID workflow.
 
-> Developed by [PWARDS-weather](https://github.com/PWARDS-weather) — the Pasacao Weather Atmospheric and Real-Time Data System.
+> Developed by [PWARDS-weather](https://github.com/PWARDS-weather) — The Pasacao Weather Atmospheric and Real-Time Data System.
 
 ---
 
