@@ -1,83 +1,102 @@
-import threading
+import ctypes
+import logging
+import os
 import subprocess
 import sys
-import os
-import logging
+import threading
+import time
+from ctypes import wintypes
+
 from bootloader import Bootloader
 
-# -----------------------------
-# Setup: silence logs globally
-# -----------------------------
-logging.getLogger().setLevel(logging.WARNING)  # only warnings/errors
+logging.getLogger().setLevel(logging.WARNING)
 
-# -----------------------------
-# Windows-specific: hide console windows
-# -----------------------------
 CREATE_NO_WINDOW = subprocess.CREATE_NO_WINDOW if sys.platform == "win32" else 0
-pythonw = os.path.join(os.path.dirname(sys.executable), "pythonw.exe")
 
-# -----------------------------
-# Bootloader UI
-# -----------------------------
-boot = Bootloader()
+python_exe = sys.executable
+pythonw = os.path.join(os.path.dirname(python_exe), "pythonw.exe")
+if not os.path.exists(pythonw):
+    pythonw = python_exe
 
-def update(msg, percent):
-    boot.update_status(msg, percent)
+project_root = os.path.dirname(os.path.abspath(__file__))
 
-# -----------------------------
-# Background tasks
-# -----------------------------
-def background_tasks():
-    try:
-        # Step 1: Install requirements silently
-        update("Installing requirements...", 10)
-        subprocess.run(
-            [pythonw, "-m", "pip", "install", "-r", "requirements.txt"],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            creationflags=CREATE_NO_WINDOW,
-            check=True
-        )
 
-        # Step 2: Run latest_symlink.py silently
-        update("Running latest_symlink.py...", 50)
-        project_root = os.path.abspath(os.path.dirname(__file__))
-        process_path = os.path.join("Process", "latest_symlink.py")
-        subprocess.run(
-            [pythonw, process_path],
-            cwd=project_root,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            creationflags=CREATE_NO_WINDOW,
-            check=True
-        )
+def _wait_for_monwatch_window(process, timeout=60):
+    """Poll until a window titled 'Monwatch' appears or process dies."""
+    if sys.platform != "win32":
+        time.sleep(3)
+        return process.poll() is None
 
-        # Step 3: Launch App.py silently
-        update("Launching App.py...", 80)
-        subprocess.Popen(
-            [pythonw, os.path.join("src", "App.py")],
-            cwd=project_root,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            creationflags=CREATE_NO_WINDOW
-        )
+    user32 = ctypes.windll.user32
+    WNDENUMPROC = ctypes.WINFUNCTYPE(wintypes.BOOL, wintypes.HWND, wintypes.LPARAM)
+    start = time.time()
+    found = False
 
-        # Step 4: Finished
-        update("All systems go!", 100)
+    def enum_proc(hwnd, _lparam):
+        nonlocal found
+        length = user32.GetWindowTextLengthW(hwnd) + 1
+        buf = ctypes.create_unicode_buffer(length)
+        user32.GetWindowTextW(hwnd, buf, length)
+        if "Monwatch" in buf.value:
+            found = True
+            return False
+        return True
 
-    except Exception as e:
-        update(f"Error: {e}", 0)
-        raise
-    finally:
-        # Close bootloader UI
-        boot.finish()
+    enum_callback = WNDENUMPROC(enum_proc)
 
-# -----------------------------
-# Start background tasks thread
-# -----------------------------
-threading.Thread(target=background_tasks, daemon=True).start()
+    while time.time() - start < timeout:
+        if process.poll() is not None:
+            return False
+        found = False
+        user32.EnumWindows(enum_callback, 0)
+        if found:
+            return True
+        time.sleep(0.5)
 
-# -----------------------------
-# Run bootloader UI (blocking)
-# -----------------------------
-boot.run()
+    return False
+
+
+def main():
+    boot = Bootloader()
+
+    def update(msg, percent):
+        boot.update_status(msg, percent)
+
+    def background_tasks():
+        try:
+            update("Installing requirements...", 10)
+            subprocess.run(
+                [pythonw, "-m", "pip", "install", "--user", "-r", "requirements.txt"],
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=CREATE_NO_WINDOW,
+                check=True
+            )
+
+            update("Launching MonWatch...", 60)
+            process = subprocess.Popen(
+                [pythonw, "-m", "src"],
+                cwd=project_root,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+                creationflags=CREATE_NO_WINDOW
+            )
+
+            update("Waiting for MonWatch to start...", 80)
+            if _wait_for_monwatch_window(process):
+                update("MonWatch is ready!", 100)
+            else:
+                update("MonWatch failed to start", 0)
+
+        except Exception as e:
+            update(f"Error: {e}", 0)
+            raise
+        finally:
+            boot.finish()
+
+    threading.Thread(target=background_tasks, daemon=True).start()
+    boot.run()
+
+
+if __name__ == '__main__':
+    main()

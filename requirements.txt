@@ -1,11 +1,52 @@
-PySide6
-Pillow
-tifffile
-numpy
-boto3
-botocore
-satpy
-rasterio
-pyproj
-pyshp
-requests
+# ======================== REQUIRED DEPENDENCIES ========================
+
+# ---- GUI & Core ----
+PySide6                 # UI framework
+
+# ---- GPU Acceleration ----
+PyOpenGL
+PyOpenGL_accelerate
+
+# ---- Scientific & Array Computing ----
+numpy                   # Array operations
+scipy                   # Scientific computing
+xarray                  # Labeled multi-dimensional arrays
+netCDF4                 # NetCDF file I/O (used with xarray)
+
+# ---- Image & Raster Processing ----
+Pillow                  # Image processing (imported as PIL)
+tifffile                # TIFF/GeoTIFF reading
+rasterio                # Geospatial raster I/O
+scikit-image            # Image processing and analysis
+
+# ---- Satellite & Meteorological Data ----
+satpy                   # Satellite product generation & compositing
+sataid                  # SATAID data handling
+sounderpy               # Hyperspectral sounder processing
+metpy                   # Meteorological calculations & utilities
+
+# ---- Geospatial & Projections ----
+pyproj                  # Coordinate transformations
+cartopy                 # Map projections & georeferencing
+shapely                 # Geometric operations
+pyshp                   # Shapefile support (imported as shapefile)
+
+# ---- AWS & Networking ----
+boto3                   # AWS S3 access (Himawari data)
+botocore                # AWS low-level client
+requests                # HTTP downloads
+
+# ---- Visualization ----
+matplotlib              # Interactive plotting (found in imports)
+
+# ---- Broadcast / Sun Position ----
+pyorbital               # Astronomical computations for satellite/sun positioning
+
+
+# ======================== OPTIONAL DEPENDENCIES ========================
+
+# GPU acceleration (requires CUDA 12.x)
+cupy-cuda12x            # GPU-accelerated array operations
+
+# JIT compilation for performance boosts
+numba                   # JIT-compiled numerical routines (optional)

@@ -12,7 +12,7 @@ MonWatch-UI versions are named after weather phenomena, A to Z.
 
 ---
 
-## 🔄 v2.x — Blizzard *(current)*
+## ✅ v2.x — Blizzard
 - CRS georeferencing with lat/lon grid and coastlines
 - Multi-quality preview (0.25x, 0.5x, 1x)
 - Automatic Python setup via `run.bat`
@@ -20,17 +20,30 @@ MonWatch-UI versions are named after weather phenomena, A to Z.
 
 ---
 
-## 🔜 v3.x — Cyclone *(planned)*
+## 🔄 v3.x — Cyclone *(current — V3.0.5 "Packaging & Performance", released 2026-06-14)*
+- [x] Professional Tab (devkit-style channel grid, presets, FG+BG, stats)
+- [x] Info Box (PAGASA/JMA overlay), View Temps cursor markers, ViewportFrame
+- [x] Dedicated Animation tab + prefetch worker + loop playback
+- [x] Winds support (AMV) + wind overlay
+- [x] Tracks tab + NHC integration (cone, forecast track, points & labels, wind radii, best track)
+- [x] Multi-viewport mode (viewport mirror, bands, animation, forecast, 3D globe)
+- [x] Contouring (experimental) with multiple algorithms and region selection
+- [x] Cartopy-based NHC forecast image generation + optional cartopy grid on exports
+- [x] Tear-off / floating panels (center viewport, right panel, tabs)
+- [~] Partial GOES (sat dropdown, S3 discovery; incomplete RGB/processing — resize issues remain)
+- [ ] PAR/JAR/AoR overlay features — not yet functional on SATAID format
 - [ ] Sea Surface Temperature (SST) layer overlay
-- [ ] Export current view as PNG / GeoTIFF
-- [ ] Improved error handling and crash recovery
+- [x] Export current view as PNG / JPEG / BMP + MP4 / GIF / AVI animation
+- [ ] GeoTIFF export
+- [ ] Improved error handling and crash recovery (many bare excepts remain)
 - [ ] Metra Weather compatibility exploration
 
 ---
 
-## 🔮 v4.x — Derecho *(future)*
-- [ ] Support for additional geostationary satellites (GOES, Meteosat)
-- [ ] Animated loop playback across time steps
+## 🔮 v4.x — Derecho *(planned)*
+- [~] Support for additional geostationary satellites (GOES partial; Meteosat/GK-2A engines present, incomplete RBG/processing)
+- [x] Animated loop playback across time steps (shipped in v3.x)
+- [ ] Reliable overlays (PAR, JMA, TCAD, Manila FIR, etc.) on SATAID format
 
 ---
 

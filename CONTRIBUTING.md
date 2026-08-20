@@ -15,21 +15,52 @@ cd MonWatch-UI
 
 ### 2. Set Up Your Environment
 
-Make sure you have Python 3.10+ installed, then install dependencies:
+Make sure you have Python 3.10+ installed, then install the package with the
+development extras (ruff, pytest, pre-commit):
 
 ```
-pip install -r requirements.txt
+pip install -e ".[dev]"
+pre-commit install
 ```
+
+> **Windows quick start**: `run.bat` still works as before and uses
+> `requirements.txt`. The `pyproject.toml` install above is the recommended
+> contributor setup on any platform.
 
 ### 3. Run the App
 
 ```
-python Monson.py
+monwatch              # console script
+python -m monwatch    # preferred module entry point (`python -m src` also works)
+python Monson.py      # Windows launcher (bare-metal window handling)
 ```
 
 Or just double-click `run.bat` on Windows.
 
 ---
+
+## Code Style
+
+- Keep it readable — this project is also meant to help beginners learn
+- Add comments where the logic isn't obvious
+- Avoid introducing new dependencies unless necessary — keep the install lightweight
+
+Linting and formatting are enforced with **ruff** (configured in `pyproject.toml`,
+pre-commit hook in `.pre-commit-config.yaml`):
+
+```
+ruff check path/to/file.py     # lint
+ruff format path/to/file.py    # format
+```
+
+When you commit, the pre-commit hooks run automatically — ruff fixes lint issues
+and the formatting hook normalizes whitespace. Run `pre-commit install` once
+after cloning so the hooks are active.
+
+> **Note**: existing code was not mass-formatted when ruff was adopted. Only
+> format/modify the code you touch, and keep new code ruff-clean. Line length is
+> 120 with double quotes and standard ruff rules plus `E501`, `B008`, `SIM108`
+> ignored.
 
 ## How to Contribute
 
@@ -77,7 +108,8 @@ If you're looking for somewhere to start, these are current priorities:
 - [ ] Export view as PNG or GeoTIFF
 - [ ] Support for GOES and Meteosat satellite data
 - [ ] UI stability improvements and error handling
-- [ ] macOS/Linux compatibility exploration
+- [ ] Testing and hardening of the Linux/macOS launch path (`run.sh`)
+- [ ] Filing/landing shared functionality upstream (Satpy readers/composites, SIFT visualization ideas)
 
 ---
 

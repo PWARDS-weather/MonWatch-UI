@@ -1,241 +1,93 @@
-<p align="center">
-  <img width="1280" height="640" alt="MonWatch-poster" src="https://github.com/user-attachments/assets/2f3e4df5-3b2a-4762-90ab-b4ee17770bf0" />
-</p>
+# MonWatch-UI Cyclone V3
 
-<h1 align="center" style="font-size: 3rem; font-weight: 900;">
-  <img 
-    width="32" 
-    height="32" 
-    alt="MONWATCH-UI" 
-    src="https://github.com/user-attachments/assets/76cd20da-59a5-4b8f-9390-1d7b6525b460"
-    style="vertical-align: middle; margin-right: 8px;"
-  >
-  <img 
-    width="32" 
-    height="32" 
-    alt="splash" 
-    src="https://github.com/user-attachments/assets/a7821feb-77fc-4c9d-906a-3cb48aa0e555"
-    style="vertical-align: middle; margin-right: 8px;"
-  >
- MonWatch-UI v3.0.5
-</h1>
+**Satellite Imagery Analysis Workstation for Meteorological Data Processing**
 
-**Release date:** June 14, 2026
+MonWatch-UI lets you quickly explore raw Himawari geostationary satellite data — no web viewer required. Navigate by date, time, and spectral band, preview imagery at multiple quality levels, and view data with CRS georeferencing (lat/lon grid + coastlines) directly from AWS buckets.
 
-**A Windows tool for browsing, previewing, and analyzing satellite imagery — now with full GOES-16/17/18/19 support, NHC hurricane tracks, multi‑viewport previews, and powerful performance optimizations.**
-
-MonWatch-UI lets you explore geostationary satellite data from multiple sources: Himawari AWS, GOES ABI (NetCDF), local SATAID (`.Z`) archives, and more. Navigate by date, time, and spectral band, preview at high quality, view with georeferenced overlays, and switch between four interface modes tailored for professionals, enthusiasts, and users familiar with the classic SATAID workflow.
-
-> Developed by [PWARDS-weather](https://github.com/PWARDS-weather) — The Pasacao Weather Atmospheric and Real-Time Data System.
+> **Developed by [PWARDS-weather](https://github.com/PWARDS-weather)** — the Pasacao Weather Atmospheric and Real-Time Data System.  
+> **Established**: 2025  
+> **Status**: Operational and field-tested since July 3, 2026  
+> **Compliance**: WMO (World Meteorological Organization) standards compatible
 
 ---
 
-<p align="center">
-  <a href="https://github.com/user-attachments/assets/5cd2af74-750f-49cf-b33c-0e32ddc1f231">
-    <img src="https://github.com/user-attachments/assets/5cd2af74-750f-49cf-b33c-0e32ddc1f231" alt="MonWatch Demo" width="800"/>
-  </a>
-</p>
+<img width="1666" height="1031" alt="image" src="https://github.com/user-attachments/assets/b4bc4cd7-ba65-43a3-ad16-537c745fe201" />
 
 ---
 
-## ✨ Latest Features
+## Features
 
-### 1. Tracks Tab & NHC Integration
-- Full track management: create, edit, delete meteorological tracks (Typhoon, Hurricane, Tropical Storm, etc.) and custom AoR tracks.
-- **NHC Downloader** – fetches the latest Atlantic / East Pacific tropical cyclone advisories from nhc.noaa.gov in a background thread.
-- Overlay NHC data on the viewport: cone of uncertainty, forecast track line, points & labels, wind radii, and best track — each with independent visibility toggles.
-- Storm selector combo to focus on a specific downloaded storm.
-- Data is cached to disk (JSON metadata, shapefiles, KMZ) and auto-archives stale storms on startup.
-- Floating info box on the viewport (configurable position: top/bottom-left/right).
-
-### 2. Multi‑Viewport (In Progress)
-- Up to 5 independent windows, each with a mode selector:
-  - **Viewport** – mirrors the main graphics view (non-interactive, synced every 33ms).
-  - **Bands** – displays a single band with zoom/pan.
-  - **Animation** – plays animation sequences.
-  - **Forecast** – renders NHC forecast tracks via Cartopy + matplotlib.
-  - **3D Globe** – embeds a rotatable globe with equirectangular-reprojected satellite imagery.
-- The **Multi‑Viewport tab** in the main window is still a placeholder while we refine the UX.
-
-### 3. Contouring (Experimental)
-- Drag a rectangle on the viewport while contour mode is active to select a region.
-- Multiple algorithm options: MonWatch-UI Default, SATAID-style, PWARDS (currently disabled).
-- Configurable contour levels, Gaussian blur smoothing, Kelvin‑to‑Celsius conversion for IR/WV bands.
-- Grid and coastline overlay on the contour plot.
-- Works with both GOES/ Himawari NC bands and SATAID data.
-
-### 4. Animation Object Tracking, Generation & Image Generation
-- In **Target Area** mode, a **Track** checkbox centers the viewport on each frame as the animation advances.
-- Export formats: PNG, JPEG, BMP, MP4, GIF, AVI with configurable footer bar (satellite, datetime, band, lat/lon).
-- *(Full Disk tracking is not yet supported – IBTrACS integration is still in development.)*
-
-### 5. Cartopy Export & Forecast Generation
-- Optional Cartopy grid overlay on exported images (settings toggle).
-- Cartopy-based NHC forecast track image generation for the multi‑viewport Forecast mode – includes land/ocean background, cone polygons, colored intensity points, and labeled annotations.
-
-### 6. Tear-off / Floating Panels
-- The **Center Viewport** and **Right Panel** can be detached into floating windows by opening the window menu and clicking "Float Right Panel", "Float CenterView" or Opening the Left Panel Menu and Clicking "Float Left Panel".
-- Drag any tab from the **right panel** (Tracks, Animation, Tools, etc.) out of the window to detach it into its own floating window.
-- Re-dock by closing the floating window.
+- **Drag-and-drop loading** — drop AWS Himawari files directly into the UI
+- **Manual folder navigation** — browse by date → time → spectral band
+- **CRS georeferencing** — lat/lon grid overlay with a vector coastline drawn from the Natural Earth 1:50m admin-0 country polygons (a SIFT-style "borders" layer, not a baked image)
+- **Multi-quality preview** — view imagery at 0.25x, 0.5x, and 1x resolution
+- **Automatic Python setup** — `run.bat` handles all dependencies on first launch
+- **No configuration needed** — works out of the box on Windows 10/11
+- **Multi-agency data support** — NHC, JMA, JTWC, PAGASA tropical cyclone forecasts
+- **Real-time alerts** — Emergency alert notifications for severe weather
+- **Animation playback** — Multi-frame satellite imagery sequences
+- **Export capabilities** — PNG/JPEG/BMP stills and animated MP4/GIF/AVI export with geospatial footers
 
 ---
 
-## ⚡ Performance
+## Screenshots
 
-### 1. Overlay Rendering Rewritten (cached layers)
-- The old combined `QImage` overlay (grid + coast + NHC on one bitmap) is now **three separate cached layers**:
-  - **Grid** – cached `QGraphicsPixmapItem`, re-rendered only when CRS/geotransform or grid settings change.
-  - **Coastlines** – same pattern, independent cache.
-  - **NHC overlays** – separate `QGraphicsPathItem`s, redrawn only when NHC toggles or data updates.
-- **Result:** toggling one overlay no longer forces a full redraw of all others.
-
-### 2. Fixed `update_overlays()` Early-Return (was always bypassed)
-- The cache-key comparison at the top of `update_overlays()` depended on `_overlay_item`, which was set to `None` by `_remove_all_overlay_items()` on every call — so **every overlay update re-rendered everything**.
-- Fixed: the key is now computed directly from the scene pixmap item, and `_last_overlay_key` is actually saved at the end of the function.
-
-### 3. Image Resize Cached Per Band + Pre-Resized in Background Worker
-- Switching bands triggered `skimage.transform.resize` on a ~3000×2400 RGBA array **every time** (~2 seconds of UI freeze).
-- **Fix:** results are cached by `(band, original_w, original_h, ref_w, ref_h)`. Repeated switches to the same band are instant.
-- Additionally, the `RawBandCacheWorker` now pre-resizes display images in its **thread pool** during the initial caching phase — so even the *first* display of each band arrives at the correct size.
-- > **Note:** The first time you load a particular date/scene, it will be slower while bands are fetched, calibrated, and cached. After that, any future loads of the same data will be significantly faster.
-
-### 4. `ref_grid_size` Extracted Earlier (during metadata load)
-- Previously the reference grid dimensions were only read from the ADS sidecar during `extract_crs_from_ads()`, which ran during the *first display* — too late for the caching workers.
-- **Fix:** both the GOES multi-file path and the generic NC path now extract `ref_grid_w`/`ref_grid_h` from the sidecar while loading metadata, before any caching begins.
-
-### General
-- **App icon** – window title bar and taskbar icon now set to `Monwatch-LOGO.png`.
-
----
-
-## 📦 How to Run
-
-1. Extract the `.rar` archive – you'll get a `MonWatch` folder.
-2. Open `MonWatch\Windows\` and double‑click `MonWatch.exe`.
-3. *(Optional – Developer)* To compile your own `.exe` from source: `pip install -r requirements.txt && pyinstaller MonWatch.spec`.
-
----
-
-## ⚠️ Security & Packaging – Resolved
-
-| Issue | Status |
-|-------|--------|
-| `run.exe` flagged as Trojan (Phonzy, Malware.AI) | **FIXED** – now using proper PyInstaller build (`MonWatch.exe`) instead of BAT‑to‑EXE converter |
-| Third‑party BAT‑to‑EXE converter stub | **REMOVED** |
-| False positives from heuristic engines | **BYPASSED** – legitimate PyInstaller binary, no suspicious stubs |
-
-**Current distribution:** `.rar` archive → `MonWatch\Windows\` contains the portable build including `MonWatch.exe`.
-
----
-
-## 🔧 Linux Compatibility
-- Linux build will be in v3.0.6
-
----
-
-## All Features (Cumulative)
-
-- **Full GOES-16/17/18/19 Support** – Native ABI NetCDF reading (C01–C16), all sectors (Full Disk, CONUS, Mesoscale)
-- **Full SATAID Support** – Native handling of `.Z` files, dedicated SATAID mode & tab, classic interface replication
-- **Four UI Modes** – Casual, Professional, Hobby, SATAID
-- **NHC Hurricane Tracks** – download and overlay real‑time cyclone data from nhc.noaa.gov (new in v3.0.5)
-- **Multi‑Viewport** – up to 5 independent satellite, forecast, and globe views (in progress, v3.0.5)
-- **Contouring** – experimental region‑based temperature contouring (v3.0.5)
-- **Animation export** – MP4, GIF, AVI, etc., with tracking and customizable footer (v3.0.5)
-- **Cartopy‑based forecast maps** – NHC forecast track generation (v3.0.5)
-- **Floating panels** – detachable viewport, right panel, and individual tabs
-- **Drag‑and‑drop loading** – Drop Himawari `.tif` (deprecated), NetCDF, GOES `.nc`, or SATAID `.Z` files directly
-- **Robust crash logging** – Global exception hook + threading support
-- **Live brightness/contrast controls** and SATAID Cache Manager
-- **Dynamic Date & Time selector** – shows only dates with actual data
-- **Non‑blocking caching bands dialogue** – prevents interface freezes
-- **CRS georeferencing** – Lat/lon grid + coastline overlays (standard formats)
-- **Automatic setup** – first‑launch dependency handling (no admin required)
-- **RGB composites** – JMA recipes support (more planned)
-- **Area of Responsibility (AoR) overlays** – PAGASA PAR, JMA, TCAD, TCID, Manila FIR
-- **Wind data** – NDMW Level‑2 wind data merged into AHI NetCDF, wind overlays (improving)
-- **Performance optimizations** – cached overlay layers, pre‑resized imagery, smart cache management
-
----
+| Quality 0.25x | Quality 0.5x | Quality 1x |
+|---|---|---|
+| <img width="418" height="300" alt="image" src="https://github.com/user-attachments/assets/babf6eea-12f8-47eb-8bed-d74dfcb275f1" /> | <img width="268" height="194" alt="image" src="https://github.com/user-attachments/assets/39175537-1564-4961-be0c-32c85ec5c645" /> | <img width="339" height="252" alt="image" src="https://github.com/user-attachments/assets/a2c865e9-2af3-4a95-8c2e-b167bc528176" /> |
 
 ## Requirements
 
-- Windows 10 or 11 (Linux soon)
-- **RAM:** 2 GB minimum (4 GB recommended for smooth multi‑viewport and animation)
-- Internet connection (for AWS data access; offline SATAID/GOES processing works without internet)
-- No Python pre‑installation needed – the portable build includes everything
+- **Windows** 10 or 11 (*Windows-first build — see [Why Windows-first?](#why-windows-first)*)
+- **Linux / macOS** — supported via `run.sh` or `python -m src`
+- Internet connection (for AWS data access)
+- No Python pre-installation needed on Windows — `run.bat` sets it up automatically
 
 ---
 
 ## Installation
 
-### Portable Build (Recommended)
-1. Download the latest `.rar` archive from [Releases](https://github.com/PWARDS-weather/MonWatch-UI/releases).
-2. Extract the archive – you’ll get a `MonWatch` folder.
-3. Navigate to `MonWatch\Windows\` and run **`MonWatch.exe`**.
+### Windows (quick start)
 
-### From Source
-1. Clone the repository:  
-   `git clone https://github.com/PWARDS-weather/MonWatch-UI.git`
-2. Install dependencies:  
-   `pip install -r requirements.txt`
-3. Run the application:  
-   `python main.py`
+1. Clone or download this repository:
+   ```
+   git clone https://github.com/PWARDS-weather/MonWatch-UI.git
+   cd MonWatch-UI
+   ```
+
+2. Run `run.bat` (double-click or right-click → Run as administrator if needed)
+
+3. The app launches automatically after setup
+
+### Install as a Python package (contributors / all platforms)
+
+MonWatch-UI ships as an installable Python package (`pyproject.toml`). To install
+it directly:
+
+```
+pip install -e ".[dev]"      # editable install + development tools
+pip install -e ".[gpu]"      # optional GPU acceleration (CUDA 12.x)
+monwatch                      # launch via the console script
+python -m monwatch            # or via the module entry point (`python -m src` also works)
+./run.sh                      # or the cross-platform bootstrap (Linux/macOS)
+```
 
 ---
 
 ## Usage
 
-**Drag and Drop**  
-Drop any supported file (`.nc`, GOES `.nc`, SATAID `.Z*`) into the main panel to load and preview it.
+### Drag and Drop
+Drag any AWS Himawari `.tif` or compatible file into the main panel to load and preview it.
 
-**Manual Navigation**  
-Click the **Scene** tab to browse a dynamically dated dropdown box.
+### Manual Navigation
+Click **Open Folder**, then navigate into a date folder → time folder → spectral band to browse available imagery.
 
-- **For Himawari/GOES data:** set the Satellite to Himawari/GOES then select the dynamically changing date dropdown box → time dropdown box → then click **Load Bands** to load all data into cache.
-- **For SATAID files:** set the Satellite to **Himawari**, then select the type (or scroll down the type list until it says "SATAID"). The dates will then automatically update for the SATAID archives.
-**Manual Navigation**
-
-**For Visualizing**
-Click the **Scene** tab to browse a dynamically dated dropdown box.
-
-- **For Himawari/GOES data:** select the dynamically changing date dropdown box → time dropdown box → then click **Load Bands** to load all data into cache.
-- **For SATAID files:** set the Satellite to **Himawari**, then select the type (or scroll down the type list until it says "SATAID"). The dates will then automatically update for the SATAID archives.
-
-## For Downloading Satellite Data
-
-1. In the **Left Panel**, find and click the button labeled **D** or **Download**.  
-   A new window will open with the following options:
-
-   - **Satellite Type**
-   - **Band Selection** – choose which bands to download
-   - **Download Settings**  
-     - **Path**  
-     - **Processing**  
-       - **Mode**: Extract Only, Process Only (NetCDF), or Extract & NetCDF (Default)
-   - **Region** – only available for date range selection
-   - **Download L2 Winds** – only available when Full Disk is selected
-   - **Date Range From** / **Date Range To**
-   - **Download Button** – single download only
-   - **Download Button Sequence**
-
-Full documentation coming soon.
----
-
-**Interface Modes**  
-Switch between Casual, Professional, Hobby, and SATAID modes from the menu.
-
-**Data Sources**  
-- NOAA Himawari AWS buckets (requires internet)
-- GOES ABI NetCDF files (local or remote)
-- Local SATAID archives (`.Z` format)
-- NetCDF/TIFF files processed by the included tools
+### Data Source
+All imagery is sourced from AWS-hosted NOAA Himawari buckets. An internet connection is required to stream data.
 
 ---
 
 ## Dependencies
-
-All dependencies are installed automatically by the portable build or via `pip`. Core packages:
 
 | Package | Purpose |
 |---|---|
@@ -243,81 +95,55 @@ All dependencies are installed automatically by the portable build or via `pip`.
 | Pillow | Image processing |
 | tifffile | TIFF/GeoTIFF reading |
 | numpy | Array operations |
-| xarray, netCDF4 | SATAID, GOES & NetCDF data handling |
-| boto3, botocore | AWS S3 access for Himawari data |
-| satpy | Satellite product generation & compositing |
-| rasterio | Geospatial raster I/O |
-| pyproj | Coordinate transformations |
-| pyshp | Shapefile support for overlays |
-| cartopy | Map projections & georeferencing |
-| requests | HTTP downloads |
-| cupy-cuda12x | GPU-accelerated array operations (optional) |
-| numba | JIT-compiled numerical routines (optional) |
+| xarray | NetCDF data handling |
+| rasterio | Geospatial raster operations |
+| pyproj | Coordinate reference system transformations |
+| cartopy | Map projections and cartography |
+
+All dependencies are declared in `pyproject.toml` (installed automatically by
+`pip install -e .`). The `requirements.txt` file is retained for the Windows
+`run.bat` launcher. GPU-only and niche packages (`cupy-cuda12x`, `numba`,
+`sataid`, `sounderpy`) are optional extras, not base requirements.
 
 ---
 
-## Legend
+## Why Windows-first?
 
-- `[x]` — Fully added / completed in a recent release
-- `[x+]` — Improving / in active development
-- `[~]` — Planned / in the works
-- `[ ]` — Not yet started
+MonWatch-UI has been developed and field-tested primarily on Windows 10/11 to
+serve its target users (meteorology students, researchers, and hobbyists in the
+Philippines), where Windows is the dominant desktop OS and the environment
+around JMA/PAGASA satellite tooling is commonly Windows-based. The application
+is not Windows-only in design:
 
-### What’s already here
+- Linux build scripts (`build_linux.sh`, `build_nuitka_linux.sh`) are included.
+- `python -m monwatch`, the `monwatch` console script, and `run.sh` launch the app on
+  any OS with a matching Python environment.
+- Windows-only system APIs (window-show detection, `pythonw`, `CREATE_NO_WINDOW`,
+  PowerShell sound/TTS) are guarded so the core app runs elsewhere.
 
-- [x] Full GOES-16/17/18/19 support (C01–C16, all ABI sectors)
-- [x] Four UI modes: Casual, Professional, Hobby, SATAID
-- [x] NHC integration – download and overlay real‑time cyclone advisories
-- [x] Multi‑viewport (up to 5 windows, in progress)
-- [x] Experimental contouring
-- [x] Animation tracking & export (MP4, GIF, AVI, etc.)
-- [x] Cartopy‑based forecast maps
-- [x] Tear‑off floating panels for viewport, right panel, and tabs
-- [x] Performance overhaul – cached overlay layers, pre‑resized images
-- [x] Robust crash logging and threading
-- [x] SATAID Cache Manager
-- [x] RGB composites (JMA recipes)
-- [x] Range‑download overhaul with non‑blocking workers
-- [x] Priority B03 band caching
-- [x] Dynamic Date & Time selector
+## Architecture
 
-### 🔄 Currently In Progress / Planned
+MonWatch-UI follows a modular architecture with domain-specific controllers:
 
-- [x+] SATAID UI additional functions and UI fixes
-- [x+] Wind Overlay improvements + AMV (wind vectors) bug fixes
-- [~] MetraWeather Lightning & Point Forecast integration
-- [~] Other geostationary satellites: Meteosat, FY‑4
-- [~] NWP & forecasting models – full GRIB2 integration
-- [~] Multi‑viewport & stacking viewport – view multiple bands/models simultaneously
-- [~] Sea Surface Temperature (SST) – real‑time layers and analysis
-- [~] 3D Globe – multi‑satellite rotatable view
-- [~] Bird’s‑eye view – perspective viewing angle
-- [~] Diagnostic tools – sounding profiles, cross‑section analysis
-- [~] Analysis tools – contouring, isotherm/isobar drawing, distance/area measurement
-- [~] Tracks tab + more customizability options
-- [~] General GUI improvements (ongoing)
-- [~] Export current view as PNG / GeoTIFF
+- **UI Layer** (`src/UI.py`) — Main application window with controller delegation
+- **Controllers** (`src/controllers/`) — Business logic for alerts, animation, climate, export, forecast, overlays, and satellite data
+- **Services** (`src/services/`) — Shared domain services for contouring and map projection
+- **Data Clients** (`src/clients/`) — Agency API integrations (NHC, JMA, JTWC, PAGASA)
+- **Workers** (`src/workers/`) — Background threading for cache operations and exports
+- **Core Engine** (`src/core/`) — Computation backend with NumPy/CuPy support
 
 ---
 
 ## Roadmap
 
-The team is dedicated to making MonWatch-UI the most powerful, free satellite & weather analysis platform. Upcoming releases:
+Planned features for upcoming releases:
 
-- **v3.0.6** – SATAID UI enhancements, MetraWeather Lightning, GRIB2 NWP, Multi‑viewport, 3D Globe, Diagnostic & Analysis tools
-- **v4 "Derecho"** – Plugin system, Animation overhaul, MonWatch-UI Bundle System
-- **v5 "ENSO"** – Polar satellite imagery, Advanced 3D features, Automated testing suite
-- **v6** – Space Weather UI, Seismology UI
-
----
-
-## Known Issues (v3.0.5)
-
-- **SATAID UI band names** – only S1 through S9 and EIRc/EIRm are correctly labeled; all other band names are currently incorrect or mismatched.
-- **Overlays (PAR, AoRs, etc.) on SATAID format** – only Grid and Coastline work reliably. Other overlays may cause the app to break. Disable them when working with SATAID files.
-- **GOES band images** – do not resize properly in certain viewport configurations. Workaround: disable grid and coastline before loading.
-
-> **Note:** This release is primarily a packaging & performance test build. The next release (v3.0.6) will be a stable build with the above bugs resolved.
+- [ ] Sea Surface Temperature (SST) layer overlay
+- [ ] Support for additional geostationary satellites (GOES, Meteosat)
+- [ ] 3D Earth visualization for combined GeoSat imagery
+- [ ] Export current view as PNG / GeoTIFF
+- [ ] Atmospheric Motion Vectors (AMV) visualization
+- [ ] Enhanced multi-viewport support for comparative analysis
 
 ---
 
@@ -327,99 +153,87 @@ Contributions are welcome! To get started:
 
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/my-feature`)
-3. Make your changes and test them
-4. Open a Pull Request with a clear description
+3. Set up a dev environment: `pip install -e ".[dev]"` then `pre-commit install`
+4. Make your changes, run `ruff check` + `ruff format` on your files, and test them
+5. Open a Pull Request with a clear description of what you changed
+
+**Important**: Before submitting modifications, please review the [Developer Notification Policy](#license) below.
 
 For bugs or feature requests, please [open an issue](https://github.com/PWARDS-weather/MonWatch-UI/issues).
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the full contributor guide.
+
+### Contributing to Satpy / SIFT upstream
+
+MonWatch-UI builds on [Satpy](https://github.com/pytroll/satpy) for satellite
+reading and compositing. If you write functionality that belongs in a shared
+library rather than this app, please **file an issue or open a pull request
+upstream**:
+
+- Satpy: https://github.com/pytroll/satpy — readers, composites, corrections
+- SIFT (uwsift): https://github.com/ssec/sift — visualization techniques
+  (MonWatch-UI's borders-overlay style is modeled on SIFT's approach)
+
+Upstream contributions are a great way to grow as a developer, and they let the
+whole community benefit.
 
 ---
 
 ## License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is **dual-licensed** under the Apache License, Version 2.0, and the GNU General Public License, Version 3.0.
+
+You may use, modify, and distribute this software under the terms of either license, provided that:
+- Any distributed modifications remain open-source
+- You comply with both licenses where applicable
+- You retain this copyright notice and license headers in all copies
+
+See [LICENSE](LICENSE) for the full text of both licenses.
+
+### Developer Notification Policy
+
+**Important**: As a condition of this open-source license, any party intending to modify, redistribute, or create derivative works of this software **must formally notify the principal developers** prior to such modification or redistribution.
+
+**Notification must be sent via:**
+- Email to: **pwards.sci@gmail.com**
+- Official GitHub issue/pull request at: https://github.com/PWARDS-weather/MonWatch-UI
+
+**Failure to provide notification constitutes unauthorized modification and distribution, which violates the terms of this license.**
+
+This policy applies to all users, contributors, and distributors of MonWatch-UI.
 
 ---
 
 ## About PWARDS
 
-PWARDS (Pasacao Weather Atmospheric and Real-Time Data System) is a small open‑source weather initiative based in Pasacao, Camarines Sur, Philippines, focused on building accessible meteorology tools for students and hobbyists.
+**PWARDS** (Pasacao Weather Atmospheric and Real-Time Data System) is an open-source meteorological initiative based in Pasacao, Camarines Sur, Philippines, established in 2025.
 
-[GitHub](https://github.com/PWARDS-weather) · [Facebook](https://www.facebook.com/share/14ShA5G2Wcv/)
+PWARDS develops accessible weather monitoring and satellite data processing tools for students, researchers, and hobbyists. The organization maintains several open-source projects including MonWatch-UI, a satellite imagery analysis workstation for cyclone monitoring.
 
-> Himawari‑8/9 data courtesy of the Japan Meteorological Agency (JMA), openly distributed via NOAA AWS Open Data Program. GOES data courtesy of NOAA/NESDIS.
+**Contact**: pwards.sci@gmail.com  
+**GitHub**: https://github.com/PWARDS-weather  
+**Facebook**: https://www.facebook.com/share/14ShA5G2Wcv/
 
----
+**Principal Developer**: Zero (Prince Al Zhanjie B. Dela Rosa)
 
-## 🌧️ MonWatch-UI (Names and Meanings) 
+### Project governance
 
-**International name (acronym):**  
-`MonWatch-UI` = **Mon**soon + **Watch**ing + **UI**
-
-**Local name (Filipino acronym):**  
-`TINGIN` = **T**ropical **I**ntegrated **N**ear‑real‑time **G**uidance **I**nterface **N**etwork
-*(or)* `SILIP` = **S**atellite **I**nteractive **L**ow‑level **I**maging **P**rocessor
-
----
-
-## 🗒️ JMA Official Response (June 2026)
-
-In June 2026, the Japan Meteorological Agency officially confirmed that MonWatch-UI’s use of Himawari data via NOAA AWS is fully compliant with the WMO Unified Data Policy. No formal agreement or authentication mechanism is required from JMA. This clearance reinforces our commitment to providing free and lawful access to geostationary satellite data.
-
-> *“Himawari data distributed via NOAA's AWS servers are the data provided to NOAA by JMA on a free and unrestricted basis based on the WMO Unified Data Policy. Therefore, JMA has no issue with your use of the data in accordance with the condition of use of NOAA's AWS servers.”* – Satellite Program Division, JMA
-
-### 📬 NOAA Open Data Dissemination (NODD) Inquiry – June 2026
-
-To further ensure compliance with NOAA’s AWS Open Data terms, we sent an inquiry to the NOAA NODD Team on 9 June 2026. In that email, we confirmed:
-
-- Anonymous, read‑only GET requests to the `noaa-himawari9` bucket
-- On‑the‑fly generation of RGB composites and overlays (local only, no redistribution)
-- Full quotation of JMA’s favourable response
-
-**As of this release, we have not received a reply from NOAA.** The project continues to operate strictly within publicly documented AWS Open Data terms and JMA’s confirmed permissions. If we receive a response, this section will be updated accordingly.
+- The **PWARDS-weather** GitHub account is the publishing organization; code
+  commits are attributed to **individual developer accounts**, so contributions
+  remain tied to the people who write them and tracks cleanly as the team grows.
+- Maintainers push from their personal accounts; the organization account is
+  reserved for releases and repository administration.
 
 ---
 
-## Screenshots (v3.0.5)
+## Acknowledgments
+
+- **NOAA** — National Oceanic and Atmospheric Administration for Himawari data via AWS
+- **JMA** — Japan Meteorological Agency for tropical cyclone forecast data
+- **NHC** — National Hurricane Center for Atlantic/EPAC storm data
+- **JTWC** — Joint Typhoon Warning Center for Western Pacific cyclone data
+- **PAGASA** — Philippine Atmospheric, Geophysical and Astronomical Services Administration
 
 ---
 
-https://github.com/user-attachments/assets/7d2897b5-1fb4-4cbf-9703-4c553e9645f5
-
----
-
-https://github.com/user-attachments/assets/ef438df7-2793-4975-8a54-c28e8f12a845
-
----
-
-<img width="1880" height="1037" alt="monwatch_20260613_150319" src="https://github.com/user-attachments/assets/4982b317-a75f-406b-95b9-c396761a41ec" />
-
----
-
-<img width="1880" height="1037" alt="monwatch_20260613_145726" src="https://github.com/user-attachments/assets/a86b6a45-6ea1-48be-9934-891eda0e3d58" />
-
----
-
-<img width="1880" height="1037" alt="monwatch_20260613_143646" src="https://github.com/user-attachments/assets/cadde61c-3038-43f6-bc15-99275dc6a2ee" />
-
----
-
-<img width="1880" height="1037" alt="monwatch_20260613_142631" src="https://github.com/user-attachments/assets/d92384ef-9116-47c9-a15a-2ad1e6f654c5" />
-
----
-
-<img width="1882" height="1037" alt="monwatch_20260612_171816" src="https://github.com/user-attachments/assets/41edb047-92a2-4e2a-a11e-04c31479ebc2" />
-
----
-
-<img width="1340" height="1348" alt="forecast_Cristina_ep032026_20260611_052108" src="https://github.com/user-attachments/assets/06dd66b2-539f-44f8-8243-f3eba388ab15" />
-
----
-
-### 🌐 Check Out Our Website
-
-**pwards.loophole.site**
-
----
-
-*Happy forecasting – from both sides of the Pacific, and everywhere in between!*  
-– The PWARDS Weather Team
+*MonWatch-UI Cyclone V3.0.5.1 — © 2025-2026 PWARDS-weather*

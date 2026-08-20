@@ -1,0 +1,135 @@
+MonWatch-UI Cyclone V3 — Folder & File Structure
+==================================================
+
+Root-level files:
+├── Monson.py              # Main launcher with Bootloader GUI
+├── launcher.py            # Frozen-build aware launcher (falls back to Monson)
+├── bootloader.py          # Bootloader GUI
+└── requirements.txt       # Python dependencies
+
+Root-level directories:
+├── Exports/               # Generated exports (animations, images)
+├── Process/               # Forecast/alert generation scripts
+├── public/                # Static assets (images, sounds)
+├── src/                   # **Only UI.py is directly in /src**
+├── data/                  # Runtime/downloaded agency data
+├── config/                # Configuration files (settings.json, process_dat_settings.json)
+└── logs/                  # Runtime logs (crash.log)
+
+data/ structure:
+├── jma_data/              # JMA storm data
+├── jtwc_data/             # JTWC storm data
+├── nhc_data/              # NHC storm data
+├── pagasa_data/           # PAGASA storm data
+├── atcf_data/             # ATCF data
+├── tracks/                # Cached storm track JSON files
+├── archived/              # Archived storm data per agency
+└── Download/              # Downloaded satellite imagery
+
+public/ structure:
+├── images/                # Icons, logos, splash screen
+├── sounds/                # Notification sounds (notif.m4a, Emer.m4a, etc.)
+└── update_tracker.json    # Update tracking
+
+src/ structure:
+├── UI.py                  # Main application window (thin UI shell with controller delegation)
+├── __init__.py            # Package marker
+│
+├── controllers/           # Business logic controllers (7 domain controllers)
+│   ├── __init__.py
+│   ├── alert_controller.py       # Tropical cyclone alert generation (PAGASA, NWS, JTWC)
+│   ├── animation_controller.py   # Multi-frame satellite imagery playback
+│   ├── climate_controller.py     # Climate data overlays (CPC, GTwo)
+│   ├── export_controller.py      # Image export with geospatial footers
+│   ├── forecast_controller.py    # TC forecast track retrieval (NHC, JMA, JTWC, PAGASA)
+│   ├── overlay_controller.py     # Geospatial overlay rendering (grids, coastlines, tracks)
+│   └── satellite_controller.py   # Satellite band loading and composite generation
+│
+├── services/              # Domain services (shared business logic)
+│   ├── __init__.py
+│   ├── contour.py         # Contour line computation and rendering
+│   └── projection.py      # Map projection and CRS operations
+│
+├── clients/               # Agency API / data clients
+│   ├── __init__.py
+│   ├── pagasa.py          # PAGASA data downloader
+│   ├── jtwc.py            # JTWC data downloader
+│   ├── jma.py             # JMA data downloader
+│   ├── nhc.py             # NHC data downloader
+│   ├── atcf.py            # ATCF format parser
+│   ├── agency_tracker.py  # Multi-agency storm tracker
+│   ├── weathergov.py      # weather.gov NWS alerts
+│   └── pagasa_alerts.py   # PAGASA-specific alert fetching (data client)
+│
+├── core/                  # Core computation engine
+│   ├── __init__.py
+│   ├── Engine.py          # Compute backend (numpy/cupy)
+│   ├── products.py        # RGB product definitions
+│   └── helpers.py         # Utility functions
+│
+├── data/                  # Data-loading modules
+│   ├── __init__.py
+│   └── psgc_shapefiles.py # PSGC shapefile loader
+│
+├── parsers/               # File format parsers
+│   ├── __init__.py
+│   └── sataid_reader.py   # Satellite ID file parser
+│
+├── exporters/             # Export utilities
+│   ├── __init__.py
+│   └── animation_exporter.py  # Animation export with footer
+│
+├── workers/               # Background worker threads
+│   ├── __init__.py
+│   ├── core.py            # CacheWorker, CompositeWorker, ExportWorker, etc.
+│   └── AMVWorker.py       # Atmospheric Motion Vector worker
+│
+├── ui/                    # UI widgets and dialogs
+│   ├── __init__.py
+│   ├── components.py      # FileListWidget, ColorButton, ViewportInfoBox
+│   ├── dialogs.py         # ForecastDialog, ThemeDialog, CombinedForecastDialog
+│   ├── Centerviewport.py  # ZoomableGraphicsView, ViewportFrame
+│   ├── MultiViewportWindow.py
+│   ├── TearOffTabBar.py
+│   ├── Globe3DWidget.py   # 3D globe visualization
+│   └── settings.py        # SettingsManager, SettingsWindow
+│
+└── managers/              # Data/runtime managers
+    ├── __init__.py
+    ├── cache_manager.py       # RuntimeCacheManager
+    ├── alert_manager.py       # AlertManager, play_notification
+    ├── goes_cache.py          # GOESCacheManager
+    └── sataid_cache_manager.py# SataidCacheManager
+
+Process/ structure:
+├── forecast/              # Forecast map generation
+│   ├── __init__.py
+│   ├── common.py          # make_forecast, make_combined_forecast
+│   ├── pagasa.py          # PAGASA forecast wrapper
+│   ├── jma.py             # JMA forecast wrapper
+│   ├── jtwc.py            # JTWC forecast wrapper
+│   └── nhc.py             # NHC forecast wrapper
+│
+├── alert/                 # Alert map generation
+│   ├── __init__.py
+│   ├── common.py          # make_alert_map
+│   ├── pagasa.py          # PAGASA alert wrapper
+│   ├── nhc.py             # NHC alert wrapper
+│   └── jma.py             # JMA alert wrapper
+│
+├── caching/               # Cache generator module
+│   ├── __init__.py
+│   └── maker.py           # CacheManager class
+│
+├── climate/               # Climate data processing
+│   ├── __init__.py
+│   └── maker.py           # Climate maker script
+│
+├── tools/                 # Standalone data processing tools
+│   ├── __init__.py
+│   ├── bg_to_nc.py        # Background .DAT/.bz2 → NetCDF
+│   ├── bg_extract.py      # Background .bz2 extraction
+│   ├── Process_dat.py     # DAT file downloader/processor
+│   └── latest_symlink.py  # Latest symlink management
+│
+└── __init__.py

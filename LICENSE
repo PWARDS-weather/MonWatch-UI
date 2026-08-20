@@ -1,4 +1,4 @@
-Copyright 2026 PWARDS-weather (Pasacao Weather Atmospheric and Real-Time Data System)
+Copyright 2025-2026 PWARDS-weather (Pasacao Weather Atmospheric and Real-Time Data System)
 
 This project is dual-licensed under the Apache License, Version 2.0,
 and the GNU General Public License, Version 3.0.
@@ -10,6 +10,25 @@ either license, provided that:
   - You comply with both licenses where applicable.
   - You retain this copyright notice and license headers in all copies
     or substantial portions of the software.
+
+-------------------------------------------------------------------------------
+
+DEVELOPER NOTIFICATION POLICY
+
+As a condition of this open-source license, any party intending to modify,
+redistribute, or create derivative works of this software MUST formally notify
+the principal developers prior to such modification or redistribution.
+
+Notification must be sent via:
+  - Email to: pwards.sci@gmail.com
+  - Official GitHub issue or pull request at:
+    https://github.com/PWARDS-weather/MonWatch-UI
+
+Failure to provide notification constitutes unauthorized modification and
+distribution, which violates the terms of this license and may result in
+legal action under applicable copyright law.
+
+This policy applies to all users, contributors, and distributors of this software.
 
 -------------------------------------------------------------------------------
 

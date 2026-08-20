@@ -1,0 +1,124 @@
+[build-system]
+requires = ["setuptools >= 68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "monwatch-ui"
+version = "3.0.5.1"
+description = "MonWatch-UI Cyclone - Satellite Imagery Analysis Workstation for Meteorological Satellite Data Processing"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "Apache-2.0 OR GPL-3.0-or-later"
+authors = [
+    { name = "Zero (Prince Al Zhanjie B. Dela Rosa)", email = "pwards.sci@gmail.com" },
+]
+keywords = [
+    "satellite", "meteorology", "himawari", "goes", "imagery",
+    "tropical-cyclone", "gis", "weather",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux",
+    "Operating System :: MacOS",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Atmospheric Science",
+]
+dependencies = [
+    "PySide6",
+    "PyOpenGL",
+    "PyOpenGL_accelerate",
+    "numpy",
+    "scipy",
+    "xarray",
+    "netCDF4",
+    "Pillow",
+    "tifffile",
+    "rasterio",
+    "scikit-image",
+    "satpy",
+    "metpy",
+    "pyproj",
+    "cartopy",
+    "shapely",
+    "pyshp",
+    "boto3",
+    "botocore",
+    "requests",
+    "matplotlib",
+    "pyorbital",
+    "imageio",
+    "psutil",
+    "ffmpeg-python",
+]
+
+[project.optional-dependencies]
+gpu = [
+    "cupy-cuda12x",
+    "numba",
+]
+sataid = [
+    "sataid",
+]
+sounder = [
+    "sounderpy",
+]
+dev = [
+    "ruff",
+    "pytest",
+    "pre-commit",
+]
+
+[project.urls]
+Homepage = "https://github.com/PWARDS-weather/MonWatch-UI"
+Repository = "https://github.com/PWARDS-weather/MonWatch-UI"
+Issues = "https://github.com/PWARDS-weather/MonWatch-UI/issues"
+
+[project.scripts]
+monwatch = "src.UI:main"
+
+[project.gui-scripts]
+monwatch-gui = "src.UI:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "monwatch*"]
+
+[tool.setuptools.package-data]
+"src.config" = ["readers/*.yaml"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+src = ["src", "monwatch", "Process", "tests"]
+exclude = [
+    "sample",
+    "data",
+    "cache",
+    "Exports",
+    "public",
+    "build",
+    "dist",
+    ".ruff_cache",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4"]
+ignore = [
+    "E501",
+    "B008",
+    "SIM105",
+    "SIM108",
+]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
