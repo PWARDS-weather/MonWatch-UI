@@ -1,0 +1,4 @@
+data_reading:
+  ahi_hsd:
+    group_keys: ['start_time']
+    reader_kwargs: {}
