@@ -1,0 +1,22 @@
+{
+  "nhc": {
+    "last_update": "2026-08-20T00:26:50Z",
+    "last_slot_hour": 21
+  },
+  "jma": {
+    "last_update": "2026-08-20T00:26:50Z",
+    "last_slot_hour": 0
+  },
+  "jtwc": {
+    "last_update": "2026-08-20T00:26:50Z",
+    "last_slot_hour": 21
+  },
+  "pagasa": {
+    "last_update": "2026-08-20T00:26:50Z",
+    "last_slot_hour": 23
+  },
+  "cwa": {
+    "last_update": "2026-08-20T00:26:50Z",
+    "last_slot_hour": 0
+  }
+}

@@ -1,0 +1,135 @@
+PWARDS Himawari AHI NetCDF Format
+===================================
+
+Directory layout
+----------------
+Each scene gets its own folder named like:
+
+  AHI-L1b-FLDK_20250101_0000/
+
+Inside you'll find per-band NC files and one shared sidecar:
+
+  AHIs_FLDK_20250101_0000/B01.nc     (compact, per-band)
+  AHIs_FLDK_20250101_0000/B03.nc
+  ...
+  AHI_FLDK_20250101_0000.ads.json    (shared metadata)
+
+Per-band NC file (compact)
+--------------------------
+Each NC contains ONLY the band's pixel data + per-band calibration.
+CRS, projection, and shared metadata live in the .ads.json sidecar.
+
+Variables:
+  B01 (int16)   - packed band data, shape (y, x)
+    .scale_factor    - float32, multiply by this
+    .add_offset      - float32, add this
+    .central_wavelength_um - float
+    .units           - string (e.g. "reflectance", "brightness_temperature")
+    Fill value: -32768 (invalid/missing pixels)
+
+  qc_flags (int8) - per-band quality
+    Values: 0=pass, 1=questionable, 2=failed
+
+  cal_radiance_slope (float32)
+  cal_radiance_intercept (float32)
+  cal_reflectance_albedo_coeff (float32)  - VIS bands only
+  cal_c0_rad2tb / cal_c1_rad2tb / cal_c2_rad2tb (float32)  - IR bands only
+  cal_calibration_units (string)
+  cal_resolution_m (int32)  - 500, 1000, or 2000
+
+Global attrs on each NC:
+  satellite, timestamp, source, sector, product
+  (plus any attrs inherited from the source HSD header B01)
+
+Reading NC with Python:
+  import xarray as xr
+  ds = xr.open_dataset("B01.nc", mask_and_scale=True)
+  data = ds["B01"].values   # float32, already scaled
+  # or raw packed:
+  ds_raw = xr.open_dataset("B01.nc", mask_and_scale=False)
+  packed = ds_raw["B01"].values  # int16
+
+ADS sidecar (.ads.json)
+-----------------------
+Named AHI_<sector>_<timestamp>.ads.json (e.g. AHI_FLDK_20250101_0000.ads.json).
+Contains all CRS, projection, and per-band statistics.
+
+Top-level keys:
+  format                - e.g. PWARDS ADS format system v1.0
+  ads_version           - e.g. "1.3.0"
+  satellite             - "Himawari-9"
+  timestamp             - e.g. "20250101_0000"
+  sector                - "FLDK" | "Japan" | "Target"
+
+  observation_start_time - ISO datetime of scan start
+  observation_end_time   - ISO datetime of scan end
+
+  sun_position           - [x, y, z] vector from HSD header Block 4
+  physical_constants     - { speed_of_light, planck_constant, boltzmann_constant }
+
+  bands_loaded           - list of band names successfully processed
+  bands_failed           - list of band names that failed
+  band_count             - number of loaded bands
+
+  band_stats             - per-band dict keyed by band name:
+      each value: { qc, shape, coverage_pct, min, max, mean, std, p5, p95, units, calibration, wavelength }
+
+  qc_flags               - per-band quality flag (0/1/2)
+
+  crs                    - projection dict:
+      grid_mapping_name: "geostationary"
+      longitude_of_projection_origin: 140.7
+      perspective_point_height: 35785831.0
+      semi_major_axis: 6378137.0
+      semi_minor_axis: 6356752.314140356
+      sweep_angle_axis: "x"
+      (also proj4 / wkt if available)
+
+  geotransform           - [res_x, 0, x_origin, 0, -res_y, y_origin]
+  geotransform_2km       - same format, resampled to 2km grid
+  ref_grid_w / ref_grid_h - reference grid size for overlays
+  area_meta              - { extent: [x_ll, y_ll, x_ur, y_ur], shape: [nrows, ncols] }
+  coff_loff              - HSD coefficients: { COFF, LOFF, sub_lon, CFAC, LFAC, ... }
+
+  nc_path                - path to an example band NC file
+  nc_size_mb             - size of that NC in MB
+
+  provenance             - list of processing events
+
+Reading ads.json with Python:
+  import json
+  with open("AHI_FLDK_20250101_0000.ads.json") as f:
+      ads = json.load(f)
+  crs = ads["crs"]
+  band_stats = ads["band_stats"]
+  bands = ads["bands_loaded"]
+
+Reading CRS for pyproj/rasterio:
+  from pyproj import CRS
+  c = CRS.from_proj4("+proj=geos +lon_0=140.7 +h=35785831.0 +x_0=0 +y_0=0 +ellps=WGS84 +sweep=x +units=m +no_defs")
+
+  import rasterio
+  from rasterio.transform import Affine
+  gt = ads["geotransform"]  # or ["geotransform_2km"]
+  transform = Affine(*gt)
+
+Unpacking raw int16 data:
+  packed = ds["B01"].values  # int16
+  scale = ds["B01"].scale_factor
+  offset = ds["B01"].add_offset
+  data = packed.astype(np.float32) * scale + offset
+  data[packed == -32768] = np.nan  # fill value
+  
+--------- UPDATE 1.3.1 (ADS VERSION) --------
+
+This version of the ADS sidecar introduces two key improvements to solar geometry metadata:
+
+1. **Computed solar geometry (`solar_geometry`)**  
+   A new top‑level key that stores the **actual** solar position derived from the observation time (`observation_start_time`), using the standard NOAA solar position algorithm (no external dependencies).  
+   This block contains:
+   ```json
+   "solar_geometry": {
+     "solar_declination_deg": 22.345678,      // Sun's declination (degrees)
+     "solar_hour_angle_deg": -75.123456,      // Hour angle at satellite sub‑point (degrees)
+     "sun_earth_distance_au": 1.01654321      // Earth‑Sun distance in astronomical units
+   }
