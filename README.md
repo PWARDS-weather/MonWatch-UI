@@ -212,7 +212,7 @@ MonWatch-UI lets you quickly explore raw geostationary satellite data — no web
 ## Requirements
 
 - **Windows** 10 or 11 (*Windows-first build*)
-- **Linux / macOS** — supported via `run.sh` or `python -m src`
+- **Linux / macOS** — supported via `run.sh` or `python -m monwatch`
 - Internet connection (for AWS data access)
 - No Python pre-installation needed on Windows — `run.bat` sets it up automatically
 
