@@ -10,7 +10,7 @@ MonWatch-UI lets you quickly explore raw geostationary satellite data — no web
 
 ---
 
-<img width="1280" height="640" alt="MonWatch-poster" src="https://github.com/user-attachments/assets/2f3e4df5-3b2a-4762-90ab-b4ee17770bf0" />
+<img width="1280" height="640" alt="MonWatch-poster" src="https://github.com/user-attachments/assets/cc625f59-a039-4461-a4b3-12d0a413cc53" />
 
 ---
 
