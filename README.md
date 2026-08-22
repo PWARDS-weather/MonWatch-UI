@@ -93,7 +93,7 @@ MonWatch-UI lets you quickly explore raw geostationary satellite data — no web
 - **Frame Scrubbing**: Timeline slider with precise frame navigation.
 - **Loop Mode Toggle**: Continuous playback option.
 - **Storm-Following Tracking**: Auto-center on a geographic target or ATCF storm across frames (Target sector).
-- **Broadcast Production**: Dedicated broadcast mode with a keyframe timeline, camera animation (position, zoom, heading, pitch), easing, and project save/load.
+- **Broadcast Production**: Dedicated broadcast mode with a keyframe timeline, camera animation (position, zoom, heading, pitch), easing, and project save/load. (still in development) 
 
 ### Geospatial Overlays
 - **Lat/Lon Grid**: Multiple projections — geostationary, equirectangular, Mercator, and Plate Carrée — with configurable spacing, style, opacity, and line width.
