@@ -34,6 +34,8 @@ MonWatch-UI lets you quickly explore raw geostationary satellite data — no web
 
 **Release date:** August 20, 2026
 
+> CLI version: https://github.com/PWARDS-weather/MonWatch-CLI
+
 ---
 
 ## 🐛 Bug Fixes
