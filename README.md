@@ -5,7 +5,7 @@
 
 MonWatch-UI lets you quickly explore raw geostationary satellite data — no web viewer required. Navigate by date, time, and spectral band, preview imagery at multiple quality levels, and view data with CRS georeferencing (lat/lon grid + coastlines) directly from AWS buckets and other sources.
 
-> Companion to **MonWatch-CLI** ([A.S.T.I.G.](https://github.com/PWARDS-weather/MonWatch-CLI))
+> Companion to **MonWatch-CLI** ([A.S.T.I.G.](https://github.com/PWARDS-weather/MonWatch-CLI)). <br>
 > **Developed by [PWARDS-weather](https://github.com/PWARDS-weather)** — the Pasacao Weather Atmospheric and Real-Time Data System.  
 > **Established**: 2025  
 > **Status**: Operational and field-tested since July 3, 2026  
